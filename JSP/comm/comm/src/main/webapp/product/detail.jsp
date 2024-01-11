@@ -1,6 +1,5 @@
 <%@page import="vo.Event"%>
 <%@page import="java.util.List"%>
-<%@page import="vo.ProductEvent"%>
 <%@page import="utils.DateUtils"%>
 <%@page import="vo.Product"%>
 <%@page import="dao.ProductDao"%>
@@ -24,35 +23,33 @@
 	<div class="row">
 		<div class="col-12">
 			<h1>상품 상세</h1>
+<%
+	/*
+		요청 URL
+			localhost/comm/product/detail.jsp?no=xx
+		요청 파라미터
+			no=xxx	상품번호
+	*/
+	
+	// 요청파라미터 조회
+	int no = Integer.valueOf(request.getParameter("no"));
+
+	ProductDao productDao = new ProductDao();
+	
+	// 상품상세정보 조회
+	// Product -> no=상품번호, name=상품이름, price=상품가격, discountPrice=할인가격
+	//            description=상품설명, stock=재고수량
+	//            cat=ProductCatory[no=0, name=카테고리명]
+	//            company=Company[no=0, name=회사명, tel=null, city=null]
+	//            status=ProductStatus[no=0, name=상태명]
+	Product product = productDao.getProductByNo(no);
+	
+	// 이 상품과 관련된 이벤트목록조회
+	List<Event> eventList = productDao.getEventByProductNo(no);
+	
+	
+%>
 			
-		<%
-			
-		/*
-			요청 URL
-					localhost/comm/product/detail.jsp?no=xxx
-			요청 파라미터 
-			no=xxx 상품번호
-		*/
-		
-		// 요청 파라미터 조회하기
-		int no = Integer.valueOf(request.getParameter("no"));
-		
-		ProductDao productDao = new ProductDao();
-		
-		// 상품 상세정보조회
-		//	Product -> no=상품번호 name= 상품이름 price=가격 , discountPrice=할인가격
-		//				description= 상품설명 	stock= 재고수량
-		//				cat =ProductCategory[no=0 name =카테고리명]
-		//				company = Company[no=0 name =회사명 tel=null city=null]
-		//				status=ProductStatus[no=0 name=상태명]
-				
-				
-		Product product = productDao.getProductByNo(no);
-		
-		// 해당 상품과 관련된 이벤트 목록조회
-		List<Event> productEventList = productDao.getEventByProductNo(no);
-		
-		%>
 			<table class="table">
 				<colgroup>
 					<col width="15%">
@@ -64,8 +61,8 @@
 					<tr>
 						<th>상품번호</th>
 						<td><%=product.getNo() %></td>
-						<td>카테고리</td>
-						<th><%=product.getCat().getName() %></th>
+						<th>카테고리</th>
+						<td><%=product.getCat().getName() %></td>
 					</tr>
 					<tr>
 						<th>상품명</th>
@@ -94,24 +91,22 @@
 					<tr>
 						<th>이벤트내용</th>
 						<td colspan="3">
-				<%
-						for(Event ev : productEventList) {					
-				%>
-							<span class="badge text-bg-secondary me-3"><%=ev.getTitle() %></span>						
-				<%
-					}
-				%>
+<%
+	for (Event event : eventList) {
+%>
+							<span class="badge text-bg-secondary me-3"><%=event.getTitle() %></span>
+<%
+	}
+%>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			
 			<div>
-			<a href="modifyform.jsp?no=<%=no %>" class="btn btn-dark">수정</a>
-			<a href="delete.jsp?no=<%=no %>" class="btn btn-dark">삭제</a>
-			
+				<a href="modifyform.jsp?no=<%=no%>" class="btn btn-warning">수정</a>
+				<a href="delete.jsp?no=<%=no%>" class="btn btn-danger">삭제</a>
 			</div>
-			
 		</div>
 	</div>
 </div>

@@ -8,8 +8,9 @@
 	</filter>
 	
 	<!-- 
-		<init-param>태그로 설정한 설정정보는 FilterConfig 객체에 등록된다.-->
-	<!--  
+		<init-param>태그로 설정한 설정정보는 FilterConfig 객체에 등록된다.
+		
+		 
 	<init-param>
 		<param-name>attrName</param-name>
 		<param-value>LOGIN_USER</param-value>
@@ -31,4 +32,20 @@
 		<filter-name>timecheck</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- HttpSession의 만료시간(분 단위)를 설정한다. 
+	ex) 은행의 경우 자동로그아웃(세션만료) 시간이 짧다. --> 
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
+	<!--  에러페이지 설정하기 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/server.jsp</location>
+	</error-page>
 </web-app>

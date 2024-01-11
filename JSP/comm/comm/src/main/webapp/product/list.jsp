@@ -5,16 +5,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang ="ko">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content = "width=device-width, initail-scale=1">
-<title>          </title>
-<!-- CDN으로 포함시키기 -->
-<!-- 부트스트랩 CSS와 JavaScript 라이브러리  -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>
+<title>커뮤니티::상품</title>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
@@ -24,15 +22,15 @@
 	<div class="row">
 		<div class="col-12">
 			<h1>상품 목록</h1>
+		
+<%
+	ProductDao productDao = new ProductDao();
+
+	// 전체 상품목록 조회하기
+	List<Product> productList = productDao.getAllProducts();
+	
+%>
 			
-			
-			<%
-			ProductDao productDao = new ProductDao();
-			// 전체 상품목록 조회
-			List<Product> productList = productDao.getAllProducts();
-			
-			
-			%>
 			<table class="table">
 				<colgroup>
 					<col width="10%">
@@ -43,8 +41,6 @@
 					<col width="15%">
 				</colgroup>
 				<thead>
-				
-		
 					<tr>
 						<th>번호</th>
 						<th>상품명</th>
@@ -55,21 +51,20 @@
 					</tr>
 				</thead>
 				<tbody>
-			<%
-			for(Product p: productList) {
-			%>
+<%
+	for (Product p : productList) {
+%>
 					<tr>
-						<th><%=p.getNo() %></th>
-						<th><a href ="detail.jsp?no=<%=p.getNo()%>"><%=p.getName() %></a></th>
-						<th><%=p.getCompany().getName() %></th>
-						<th><%=p.getPrice() %></th>
-						<th><%=p.getStatus().getName() %></th>
-						<th><%=DateUtils.toText(p.getCreatedDate()) %></th>
+						<td><%=p.getNo() %></td>
+						<td><a href="detail.jsp?no=<%=p.getNo() %>"><%=p.getName() %></a></td>
+						<td><%=p.getCompany().getName() %></td>
+						<td><%=p.getPrice() %> 원</td>
+						<td><%=p.getStatus().getName() %></td>
+						<td><%=DateUtils.toText(p.getCreatedDate()) %></td>
 					</tr>
-		<%
-			}
-		 %>
-					
+<%
+	}
+%>
 				</tbody>
 			</table>
 			
