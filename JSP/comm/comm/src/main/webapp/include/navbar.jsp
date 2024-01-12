@@ -37,7 +37,7 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/comm/index.jsp">이클립스 커뮤니티</a>
+        <a class="navbar-brand" href="/comm/index.jsp">샘플 커뮤니티</a>
         <ul class="navbar-nav me-auto">
             <li class="nav-item">
                 <a class="nav-link <%="home".equals(menu) ? "active" : "" %>" href="/comm/index.jsp">홈</a>
