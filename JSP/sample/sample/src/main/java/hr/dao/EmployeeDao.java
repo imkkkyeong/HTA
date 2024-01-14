@@ -26,7 +26,7 @@ public class EmployeeDao {
 				(EMPLOYEE_ID, FISRT_NAME, LAST_NAME, EMAIL, PHONE_NUMBER,
 				HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, DEPARTMENT_ID)
 				VALUES
-				(EMPLOTEES_SEQ.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+				(EMPLOYEES_SEQ.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 				""";
 		
 		JdbcTemplate.insert(sql,emp.getFirstName(), emp.getLastName(),
@@ -60,3 +60,21 @@ public class EmployeeDao {
 		}, start, end);
 	}
 }
+
+
+/*
+ * JdbcTemplate.selectOne 메서드를 사용하여 단일 결과를 조회하고 반환
+ * JdbcTemplate.insert 메서드를 사용하여 쿼리를 실행하고, 직원 객체에서 각 필드 값을 매개변수로 전달
+ * JdbcTemplate.selectList 메서드를 사용하여 여러 행의 결과를 조회하고 반환
+ * row_number() 함수와 over 절을 사용하여 행 번호를 부여하고, 해당 번호의 범위에 속하는 직원 데이터를 조회
+ * 
+ * 
+ * 
+ * VO 클래스는 주로 데이터를 담는 객체로 사용되며, DAO 클래스에서는 이 VO 객체를 생성하고 필요한 정보를 세팅하여 데이터베이스와의 상호작용을 수행한다.
+ * VO 클래스는 데이터베이스 테이블의 구조에 맞게 정의되며, DAO 클래스에서는 VO를 통해 데이터를 전달하거나 결과를 받아온다
+ * 
+ * 
+ * JDBC(Java Database Connectivity)는 자바 프로그램과 관계형 데이터베이스 간의 표준 데이터베이스 접속을 제공하는 자바 API(응용 프로그래밍 인터페이스)
+ * JDBC를 사용하면 자바 애플리케이션에서 데이터베이스에 접속하고 SQL 쿼리를 실행하여 데이터를 검색, 추가, 수정, 삭제한다.
+ * */
+
